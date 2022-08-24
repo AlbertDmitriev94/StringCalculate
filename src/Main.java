@@ -12,7 +12,7 @@ public class Main {
     };
     static String validOperators = "[+-/*]";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println("Введите выражение арабскими [2+2] или римскими [II+II] числами (диапазон от 1 до 10)");
 
         /*
@@ -25,7 +25,7 @@ public class Main {
         printResult(result, firstNumber, secondNumber);
     }
 
-    public static String calc(String input) {
+    public static String calc(String input) throws Exception {
         char[] charBlock = new char[10];
 
         initOperatorAndNumbers(input, charBlock);
@@ -38,6 +38,9 @@ public class Main {
             converting(firstNumber, secondNumber);
             checkNumbersIsNoMoreTen(numberOneAfterConverting, numberTwoAfterConverting);
             result = calculation(numberOneAfterConverting, numberTwoAfterConverting, operation);
+            if (result < 1) {
+                throw new Exception("При результате римских чисел вышло значение 0 или отрицательное число");
+            }
         } else {
             int firstNumberInt = Integer.parseInt(firstNumber);
             int secondNumberInt = Integer.parseInt(secondNumber);
