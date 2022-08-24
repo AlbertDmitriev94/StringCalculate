@@ -112,6 +112,9 @@ public class Main {
         //инициализация первого и второго числа
         firstNumber = arrayWithNumbers[0];
         secondNumber = arrayWithNumbers[1].trim();
+        if (arrayWithNumbers[2] != null){
+            throw new IllegalArgumentException("Ошибка!Введите не более двух операндов");
+        }
     }
 
     /*
