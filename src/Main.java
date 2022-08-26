@@ -110,9 +110,17 @@ public class Main {
         }
 
         //инициализация первого и второго числа
-        firstNumber = arrayWithNumbers[0];
+        firstNumber = arrayWithNumbers[0].trim();
         secondNumber = arrayWithNumbers[1].trim();
-        if (arrayWithNumbers[2] != null){
+
+        String numbersWithOperator = String.valueOf(charBlock);
+
+        String lastI = secondNumber.substring(secondNumber.length()-1);
+
+        String substring = numbersWithOperator.substring(numbersWithOperator.lastIndexOf(lastI)+1).trim();
+
+
+        if (!substring.isEmpty()) {
             throw new IllegalArgumentException("Ошибка!Введите не более двух операндов");
         }
     }
@@ -130,7 +138,7 @@ public class Main {
      * Признак, определяющий то, что пользователь ввел римские числа
      */
     private static boolean isRoman(String firstNumber, String secondNumber) {
-        return Arrays.asList(romanNumbers).contains(firstNumber) && Arrays.asList(romanNumbers).contains(secondNumber);
+        return Arrays.asList(romanNumbers).contains(firstNumber.trim()) && Arrays.asList(romanNumbers).contains(secondNumber.trim());
     }
 
     /*
