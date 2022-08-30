@@ -1,6 +1,6 @@
 import java.util.Arrays;
 import java.util.Scanner;
-
+import java.lang.*;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static int numberOneAfterConverting, numberTwoAfterConverting;
@@ -20,7 +20,9 @@ public class Main {
          */
         String userInput = scanner.nextLine();
 
-        String result = calc(userInput);
+        String userInputWithoutSpace = userInput.replaceAll(" ", "");
+
+        String result = calc(userInputWithoutSpace);
 
         printResult(result, firstNumber, secondNumber);
     }
@@ -102,8 +104,11 @@ public class Main {
         }
         String[] arrayWithNumbers = String.valueOf(charBlock).split(validOperators);
 
+
         //проверка валидности оператора
         boolean isInvalidOperator = Arrays.asList(arrayWithNumbers).contains(validOperators);
+
+        long count = countOccurrences(String.valueOf(charBlock));
 
         if (isInvalidOperator) {
             throw new IllegalArgumentException("Не верный знак операции");
@@ -113,18 +118,23 @@ public class Main {
         firstNumber = arrayWithNumbers[0].trim();
         secondNumber = arrayWithNumbers[1].trim();
 
-        String numbersWithOperator = String.valueOf(charBlock);
 
-        String lastI = secondNumber.substring(secondNumber.length()-1);
-
-        String substring = numbersWithOperator.substring(numbersWithOperator.lastIndexOf(lastI)+1).trim();
-
-
-        if (!substring.isEmpty()) {
+        if (count > 1) {
             throw new IllegalArgumentException("Ошибка!Введите не более двух операндов");
         }
     }
 
+    private static int countOccurrences(String str) {
+        int counter = 0;
+        for (int i = 0; i < str.length(); i++)
+        {
+            char c = str.charAt(i);
+            if (c== '+'||c=='-'||c=='/'||c=='*') {
+                counter++;
+            }
+        }
+        return counter;
+    }
     /*
      * Проверка, что пользователь ввел числа от 1 до 10 включительно, иначе бросается ошибка.
      */
