@@ -18,19 +18,24 @@ public class Main {
         /*
          * Считываем строку, которую ввел пользователь:
          */
-        String userInput = scanner.nextLine();
+        String input = scanner.nextLine();
 
-        String userInputWithoutSpace = userInput.replaceAll(" ", "");
+        /*
+         * Убираем пробелы:
+         */
+        String inputWithoutSpace = input.replaceAll(" ", "");
 
-        String result = calc(userInputWithoutSpace);
+        /*
+         * Делаем вычисление:
+         */
+        String result = calc(inputWithoutSpace);
 
         printResult(result, firstNumber, secondNumber);
     }
 
     public static String calc(String input) throws Exception {
-        char[] charBlock = new char[10];
 
-        initOperatorAndNumbers(input, charBlock);
+        initOperatorAndNumbers(input);
 
         isRoman = isRoman(firstNumber, secondNumber);
 
@@ -84,52 +89,52 @@ public class Main {
     /*
      * Инициализация оператора, первого и второго числа
      */
-    private static void initOperatorAndNumbers(String userInput, char[] charBlock) {
+    private static void initOperatorAndNumbers(String input) {
+        char[] arrayOfInputChars = new char[10];
 
         //итерация для инициализации оператора
-        for (int i = 0; i < userInput.length(); i++) {
-            charBlock[i] = userInput.charAt(i);
-            if (charBlock[i] == '+') {
+        for (int i = 0; i < input.length(); i++) {
+            arrayOfInputChars[i] = input.charAt(i);
+            if (arrayOfInputChars[i] == '+') {
                 operation = '+';
             }
-            if (charBlock[i] == '-') {
+            if (arrayOfInputChars[i] == '-') {
                 operation = '-';
             }
-            if (charBlock[i] == '*') {
+            if (arrayOfInputChars[i] == '*') {
                 operation = '*';
             }
-            if (charBlock[i] == '/') {
+            if (arrayOfInputChars[i] == '/') {
                 operation = '/';
             }
         }
-        String[] arrayWithNumbers = String.valueOf(charBlock).split(validOperators);
-
+        String inputChars = String.valueOf(arrayOfInputChars);
+        String[] arrayWithNumbers = inputChars.split(validOperators);
 
         //проверка валидности оператора
         boolean isInvalidOperator = Arrays.asList(arrayWithNumbers).contains(validOperators);
-
-        long count = countOccurrences(String.valueOf(charBlock));
 
         if (isInvalidOperator) {
             throw new IllegalArgumentException("Не верный знак операции");
         }
 
+        //подсчет количества операторов
+        int countOfOperators = calculatingCountOfOperators(inputChars);
+
+        if (countOfOperators > 1) {
+            throw new IllegalArgumentException("Ошибка!Введите не более двух операндов");
+        }
         //инициализация первого и второго числа
         firstNumber = arrayWithNumbers[0].trim();
         secondNumber = arrayWithNumbers[1].trim();
-
-
-        if (count > 1) {
-            throw new IllegalArgumentException("Ошибка!Введите не более двух операндов");
-        }
     }
 
-    private static int countOccurrences(String str) {
+    private static int calculatingCountOfOperators(String str) {
         int counter = 0;
         for (int i = 0; i < str.length(); i++)
         {
-            char c = str.charAt(i);
-            if (c== '+'||c=='-'||c=='/'||c=='*') {
+            char operator = str.charAt(i);
+            if (operator== '+'||operator=='-'||operator=='/'||operator=='*') {
                 counter++;
             }
         }
