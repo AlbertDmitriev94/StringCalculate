@@ -1,14 +1,22 @@
 import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.*;
+
 public class Main {
+
     static Scanner scanner = new Scanner(System.in);
     static int numberOneAfterConverting, numberTwoAfterConverting;
     static String firstNumber, secondNumber;
     static char operation;
     static boolean isRoman;
-    static String[] romanNumbers = {"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV",
-            "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XL", "L", "LX", "LXX", "XC", "C"
+    static String[] romanNumbers = {"O", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII",
+            "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV", "XXV", "XXVI",
+            "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI", "XXXVII", "XXXVIII",
+            "XXXIX", "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII", "XLIX", "L", "LI", "LII",
+            "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX", "LXI", "LXII", "LXIII", "LXIV", "LXV", "LXVI",
+            "LXVII", "LXVIII", "LXIX", "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV", "LXXV", "LXXVI", "LXXVII", "LXXVIII",
+            "LXXIX", "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV", "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX",
+            "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII", "XCVIII", "XCIX", "C"
     };
     static String validOperators = "[+-/*]";
 
@@ -90,7 +98,7 @@ public class Main {
      * Инициализация оператора, первого и второго числа
      */
     private static void initOperatorAndNumbers(String input) {
-        char[] arrayOfInputChars = new char[10];
+        char[] arrayOfInputChars = new char[20];
 
         //итерация для инициализации оператора
         for (int i = 0; i < input.length(); i++) {
@@ -143,7 +151,7 @@ public class Main {
     /*
      * Проверка, что пользователь ввел числа от 1 до 10 включительно, иначе бросается ошибка.
      */
-    private static void checkNumbersIsNoMoreTen(int numberOne, int numberTwo) {
+    public static void checkNumbersIsNoMoreTen(int numberOne, int numberTwo) {
         if ((numberOne < 1) || (numberOne > 10) || (numberTwo < 1) || (numberTwo > 10)) {
             throw new IllegalArgumentException("Вы ввели значение, неудолетворяющее условию (числа должны быть целочисленными от 1 до 10)");
         }
@@ -152,7 +160,7 @@ public class Main {
     /*
      * Признак, определяющий то, что пользователь ввел римские числа
      */
-    private static boolean isRoman(String firstNumber, String secondNumber) {
+    public static boolean isRoman(String firstNumber, String secondNumber) {
         return Arrays.asList(romanNumbers).contains(firstNumber.trim()) && Arrays.asList(romanNumbers).contains(secondNumber.trim());
     }
 
@@ -178,7 +186,8 @@ public class Main {
             case "VIII" -> 8;
             case "IX" -> 9;
             case "X" -> 10;
-            default -> throw new IllegalStateException("Введено число за диапазоном допустимых значений: " + roman);
+            default -> throw new IllegalStateException("Введено число за диапазоном допустимых значений (от 1 до 10): "
+                    + roman);
         };
     }
 
