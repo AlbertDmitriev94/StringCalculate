@@ -20,6 +20,14 @@ public class Main {
          */
         String input = scanner.nextLine();
 
+        int result = Main.myMethod(input);
+
+        System.out.println("Результат: ");
+        System.out.println(firstNumber + " " + operation + " " + secondNumber + " = " + result);
+
+    }
+
+    static int myMethod(String input) {
         /*
          * Убираем пробелы:
          */
@@ -28,11 +36,7 @@ public class Main {
         initOperatorAndNumbers(inputWithoutSpace);
         converting(firstNumber, secondNumber);
         checkNumbersIsNoMoreTen(Integer.parseInt(firstNumber), Integer.parseInt(secondNumber));
-        int result = calculation(numberOneAfterConverting, numberTwoAfterConverting, operation);
-
-        System.out.println("Результат: ");
-        System.out.println(firstNumber + " " + operation + " " + secondNumber + " = " + result);
-
+        return calculation(numberOneAfterConverting, numberTwoAfterConverting, operation);
     }
 
     private static void converting(String firstNumber, String secondNumberWithTrim) {
@@ -40,10 +44,11 @@ public class Main {
 //            numberOneAfterConverting = romanToArabic(firstNumber);
 //            numberTwoAfterConverting = romanToArabic(secondNumberWithTrim);
 //        } else {
-            numberOneAfterConverting = Integer.parseInt(firstNumber);
-            numberTwoAfterConverting = Integer.parseInt(secondNumberWithTrim);
+        numberOneAfterConverting = Integer.parseInt(firstNumber);
+        numberTwoAfterConverting = Integer.parseInt(secondNumberWithTrim);
 //        }
     }
+
     public static int calculation(int numberOne, int numberTwo, char operator) {
         return switch (operator) {
             case '+' -> numberOne + numberTwo;
@@ -82,12 +87,12 @@ public class Main {
         if (isInvalidOperator) {
             throw new IllegalArgumentException("Не верный знак операции");
         }
-             //инициализация первого и второго числа
+        //инициализация первого и второго числа
         firstNumber = arrayWithNumbers[0].trim();
         secondNumber = arrayWithNumbers[1].trim();
     }
 
-    public static void checkNumbersIsNoMoreTen(int numberOne, int numberTwo) {
+    public static void checkNumbersIsNoMoreTen(int numberOne, int numberTwo) throws IllegalArgumentException{
         if ((numberOne < 1) || (numberOne > 10) || (numberTwo < 1) || (numberTwo > 10)) {
             throw new IllegalArgumentException("Вы ввели значение, неудолетворяющее условию (числа должны быть " +
                     "целочисленными от 1 до 10)");
