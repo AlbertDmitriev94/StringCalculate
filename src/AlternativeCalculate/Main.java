@@ -27,6 +27,7 @@ public class Main {
 
         initOperatorAndNumbers(inputWithoutSpace);
         converting(firstNumber, secondNumber);
+        checkNumbersIsNoMoreTen(Integer.parseInt(firstNumber), Integer.parseInt(secondNumber));
         int result = calculation(numberOneAfterConverting, numberTwoAfterConverting, operation);
 
         System.out.println("Результат: ");
@@ -54,7 +55,7 @@ public class Main {
     }
 
     private static void initOperatorAndNumbers(String input) {
-        char[] arrayOfInputChars = new char[20];
+        char[] arrayOfInputChars = new char[10];
 
         //итерация для инициализации оператора
         for (int i = 0; i < input.length(); i++) {
@@ -84,5 +85,12 @@ public class Main {
              //инициализация первого и второго числа
         firstNumber = arrayWithNumbers[0].trim();
         secondNumber = arrayWithNumbers[1].trim();
+    }
+
+    public static void checkNumbersIsNoMoreTen(int numberOne, int numberTwo) {
+        if ((numberOne < 1) || (numberOne > 10) || (numberTwo < 1) || (numberTwo > 10)) {
+            throw new IllegalArgumentException("Вы ввели значение, неудолетворяющее условию (числа должны быть " +
+                    "целочисленными от 1 до 10)");
+        }
     }
 }
