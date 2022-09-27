@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Test;
 
 public class MyTest {
     @Test
+    void test3(){
+        String input = "a+b";
+        String result = Main.myMethod(input);
+        Assert.assertEquals(result, "ab");
+    }
+    @Test
     void test10() {
         String input = "hi/acjk";
         Assert.assertThrows(IllegalStateException.class, () -> Main.myMethod(input));
@@ -58,9 +64,9 @@ public class MyTest {
 
     @Test
     void test72() {
-        String input = "wordwordwordwordwordwordwordwordwordwwor+d";
+        String input = "word*11";
         String result = Main.myMethod(input);
-        Assert.assertEquals(result, "wordwordwordwordwordwordwordwordwordwword...");
+        Assert.assertEquals(result, "wordwordwordwordwordwordwordwordwordwordword...");
     }
 //
 //    @Test
