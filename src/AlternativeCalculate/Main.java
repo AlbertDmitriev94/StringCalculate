@@ -5,11 +5,14 @@ import java.util.Scanner;
 
 public class Main {
 
-    static int numberOneAfterConverting, numberTwoAfterConverting;
     static String firstNumber, secondNumber;
     static char operation;
 
     static String validOperators = "[+-/*]";
+
+    static boolean firstNumberIsInt, secondNumberIsInt = false;
+
+    static int firstNumberInt, secondNumberInt;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,83 +25,63 @@ public class Main {
 
         String result = Main.myMethod(input);
 
-        System.out.println("Результат: ");
-        System.out.println(firstNumber + " " + operation + " " + secondNumber + " = " + result);
+        System.out.println("\"" + result + "\"");
 
     }
 
     static String myMethod(String input) {
+
+        initOperatorAndNumbers(input);
+
+        checkNumbers(firstNumber, secondNumber);
         /*
          * Убираем пробелы:
          */
-        String inputWithoutSpace = input.replaceAll(" ", "");
 
-        initOperatorAndNumbers(inputWithoutSpace);
-//        converting(firstNumber, secondNumber);
-        if (!isNumber(firstNumber) && !isNumber(secondNumber) && operation == '/') {
+        StringBuilder stringBuilder = new StringBuilder(firstNumber);
+        if (!firstNumberIsInt && !secondNumberIsInt && operation == '+') {
+            stringBuilder.append(secondNumber);
+        } else if (!firstNumberIsInt && !secondNumberIsInt && operation == '/') {
             throw new IllegalStateException("Ошибка при вычислении");
-        }
-
-        if (!isNumber(firstNumber) && !isNumber(secondNumber) && operation == '-') {
-            int indexSecondWord = firstNumber.indexOf(secondNumber);
-            if (indexSecondWord == -1) {
-                return firstNumber;
-            } else {
-                return firstNumber.substring(0, indexSecondWord);
-            }
-        }
-
-
-        if (!isNumber(firstNumber) && isNumber(secondNumber) && operation == '/') {
+        } else if (!firstNumberIsInt && !secondNumberIsInt && operation == '-') {
+            return subtraction();
+        } else if (!firstNumberIsInt && secondNumberIsInt && operation == '/') {
             return firstNumber.substring(0, firstNumber.length() / Integer.parseInt(secondNumber));
+        } else if (!firstNumberIsInt && secondNumberIsInt && operation == '*') {
+            wordBuild(stringBuilder);
         }
+        return addThreeDots(stringBuilder);
+    }
 
-        if (!isNumber(firstNumber) && isNumber(secondNumber) && operation == '*') {
-            StringBuilder stringBuilder = new StringBuilder(firstNumber);
-            for (int i = 0; i < Integer.parseInt(secondNumber) - 1; i++) {
-                stringBuilder.append(firstNumber);
-            }
-            return stringBuilder.toString();
-        }
-
-        checkNumbers(firstNumber, secondNumber);
-        String result = calculation(firstNumber, secondNumber, operation);
-
-        if (result.length()>40){
-            return result+"...";
-        }else {
-            return result;
+    private static String subtraction() {
+        int indexSecondWord = firstNumber.indexOf(secondNumber);
+        if (indexSecondWord == -1) {
+            return firstNumber;
+        } else {
+            return firstNumber.substring(0, indexSecondWord);
         }
     }
 
-//    private static void converting(String firstNumber, String secondNumberWithTrim) {
-////        if (isRoman) {
-////            numberOneAfterConverting = romanToArabic(firstNumber);
-////            numberTwoAfterConverting = romanToArabic(secondNumberWithTrim);
-////        } else {
-//        numberOneAfterConverting = Integer.parseInt(firstNumber);
-//        numberTwoAfterConverting = Integer.parseInt(secondNumberWithTrim);
-////        }
-//    }
+    private static void wordBuild(StringBuilder stringBuilder) {
+        for (int i = 0; i < Integer.parseInt(secondNumber) - 1; i++) {
+            stringBuilder.append(firstNumber);
+        }
+    }
 
-    public static String calculation(String firstNumber, String secondNumber, char operator) {
-
-
-        return switch (operator) {
-            case '+' -> firstNumber + secondNumber;
-//            case '-' -> firstNumber - secondNumber;
-//            case '*' -> firstNumber * secondNumber;
-//            case '/' -> firstNumber / secondNumber;
-            default -> throw new IllegalStateException("Ошибка при вычислении");
-        };
+    private static String addThreeDots(StringBuilder stringBuilder) {
+        if (stringBuilder.length() > 40) {
+            return stringBuilder + "...";
+        }
+        return stringBuilder.toString();
     }
 
     private static void initOperatorAndNumbers(String input) {
+        String inputWithoutSpace = input.replaceAll(" ", "");
         char[] arrayOfInputChars = new char[1000];
 
         //итерация для инициализации оператора
-        for (int i = 0; i < input.length(); i++) {
-            arrayOfInputChars[i] = input.charAt(i);
+        for (int i = 0; i < inputWithoutSpace.length(); i++) {
+            arrayOfInputChars[i] = inputWithoutSpace.charAt(i);
             if (arrayOfInputChars[i] == '+') {
                 operation = '+';
             }
@@ -116,28 +99,49 @@ public class Main {
         String[] arrayWithNumbers = inputChars.split(validOperators);
 
         //проверка валидности оператора
+       checkValidOperators(arrayWithNumbers);
+        //инициализация первого и второго числа
+        initNumbers(arrayWithNumbers);
+        defineNumbers();
+    }
+
+    private static void checkValidOperators (String [] arrayWithNumbers) {
         boolean isInvalidOperator = Arrays.asList(arrayWithNumbers).contains(validOperators);
 
         if (isInvalidOperator) {
             throw new IllegalArgumentException("Не верный знак операции");
         }
-        //инициализация первого и второго числа
+    }
+
+    private static void initNumbers (String [] arrayWithNumbers) {
         firstNumber = arrayWithNumbers[0].trim().replaceAll("^\"|\"$", "");
         secondNumber = arrayWithNumbers[1].trim().replaceAll("^\"|\"$", "");
+    }
+    private static void defineNumbers() {
+        try {
+            firstNumberInt = Integer.parseInt(firstNumber);
+            firstNumberIsInt = true;
+        } catch (Exception exception) {
+            firstNumberIsInt = false;
+        }
+        try {
+            secondNumberInt = Integer.parseInt(secondNumber);
+            secondNumberIsInt = true;
+        } catch (Exception exception) {
+            secondNumberIsInt = false;
+        }
     }
 
     public static void checkNumbers(String firstNumber, String secondNumber) throws IllegalArgumentException {
         try {
-
-            if (isNumber(firstNumber) && !isNumber(secondNumber)) {
+            if (firstNumberIsInt) {
                 throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
             }
 
 
-            int numberOne = Integer.parseInt(firstNumber);
             int numberTwo = Integer.parseInt(secondNumber);
 
-            if ((numberOne < 1) || (numberOne > 10) || (numberTwo < 1) || (numberTwo > 10)) {
+            if (numberTwo < 1 || numberTwo > 10) {
                 throw new IllegalArgumentException("Вы ввели значение, неудолетворяющее условию (числа должны быть " +
                         "целочисленными от 1 до 10)");
             }
