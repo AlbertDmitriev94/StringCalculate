@@ -1,7 +1,6 @@
 package AlternativeCalculate;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class MyTest {
@@ -64,9 +63,9 @@ public class MyTest {
 
     @Test
     void test72() {
-        String input = "word*11";
+        String input = "world*10";
         String result = Main.myMethod(input);
-        Assert.assertEquals(result, "wordwordwordwordwordwordwordwordwordwordword...");
+        Assert.assertEquals(result, "worldworldworldworldworldworldworldworldworldworld...");
     }
 //
 //    @Test
