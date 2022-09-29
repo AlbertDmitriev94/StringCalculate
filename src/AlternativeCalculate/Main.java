@@ -4,9 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     static Initializer initializer = new Initializer();
-
     static Validator validator = new Validator();
-
     static Calculator calculate = new Calculator();
     static String validOperators = "[+-/*]";
 
