@@ -3,39 +3,53 @@ package AlternativeCalculate;
 import java.util.Scanner;
 
 public class Main {
+    /*
+     * Создаем экземпляр для инициализации операндов и оператора
+     */
     static Initializer initializer = new Initializer();
+    /*
+     * Создаем экземпляр для проверки валидности операндов и оператора
+     */
     static Validator validator = new Validator();
-    static Calculator calculate = new Calculator();
+    /*
+     * Создаем экземпляр для вычисления
+     */
+    static Calculator calculator = new Calculator();
     static String validOperators = "[+-/*]";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введите строки или числа");
+        System.out.println("Введите выражение для вычисления");
         /*
          * Считываем строку, которую ввел пользователь:
          */
         String input = scanner.nextLine();
-
-        String result = Main.prepareAndCalculate(input);
-
+        /*
+         *Подготовка к вычислению и вычисление
+         */
+        String result = prepareAndCalculate(input);
+        /*
+         *Вывод результата
+         */
         System.out.println("\"" + result + "\"");
     }
 
     static String prepareAndCalculate(String input) {
         prepareForCalculate(input);
-        return calculate.calculate();
+        return calculator.calculate();
     }
 
     private static void prepareForCalculate(String input) {
-        String inputWithoutSpace = input.replaceAll(" ", "");
-        //итерация для инициализации оператора
-        initializer.initOperators(inputWithoutSpace);
-        //проверка валидности оператора
-        validator.checkValidOperators(initializer.arrayWithNumbers);
-        //инициализация первого и второго числа
-        initializer.initNumbers(initializer.arrayWithNumbers);
+        //Инициализация оператора
+        initializer.initOperator(input.replaceAll(" ", ""));
+        //Проверка валидности оператора
+        validator.checkValidOperator(initializer.arrayWithNumbers);
+        //Инициализация первого и второго операнда
+        initializer.initOperand(initializer.arrayWithNumbers);
+        //Проверка операнда является ли он числом или строкой
         initializer.defineNumbers();
-        validator.checkNumbers(initializer.firstNumber, initializer.secondNumber, initializer.firstNumberIsInt);
+        //Проверка чисел
+        validator.checkNumbers();
     }
 }
