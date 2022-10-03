@@ -1,6 +1,6 @@
-package AlternativeCalculate;
+package StringCalculate;
 
-import static AlternativeCalculate.Initializer.*;
+import static StringCalculate.Initializer.*;
 
 public class Calculator {
     public String calculate() {

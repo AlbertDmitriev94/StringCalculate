@@ -1,9 +1,9 @@
-package AlternativeCalculate;
+package StringCalculate;
 
 import java.util.Arrays;
 
-import static AlternativeCalculate.Initializer.*;
-import static AlternativeCalculate.Main.validOperators;
+import static StringCalculate.Initializer.*;
+import static StringCalculate.Main.validOperators;
 
 public class Validator {
     public void checkValidOperator(String[] arrayWithNumbers) {

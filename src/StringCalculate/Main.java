@@ -1,4 +1,4 @@
-package AlternativeCalculate;
+package StringCalculate;
 
 import java.util.Scanner;
 
