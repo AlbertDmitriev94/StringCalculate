@@ -6,8 +6,8 @@ public class Initializer {
     static String firstOperand, secondOperand;
     static char operator;
     static int firstOperandInt, secondOperandInt;
-    String [] arrayWithNumbers;
-    static boolean firstOperandIsInt, secondOperandIsInt = false;
+    static String [] arrayWithNumbers;
+    static boolean firstOperandIsInt, secondOperandIsInt, firstOperandIsIntInString, secondOperandIsIntInString = false;
     public void initOperator(String inputWithoutSpace) {
         char[] arrayOfInputChars = new char[1000];
         for (int i = 0; i < inputWithoutSpace.length(); i++) {
@@ -33,6 +33,9 @@ public class Initializer {
     }
 
     public void initOperand(String[] arrayWithNumbers) {
+//        if (!arrayWithNumbers[0].contains("\"")) {
+//            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
+//        };
         firstOperand = arrayWithNumbers[0].trim().replaceAll("^\"|\"$", "");
         secondOperand = arrayWithNumbers[1].trim().replaceAll("^\"|\"$", "");
     }
@@ -41,6 +44,7 @@ public class Initializer {
         try {
             firstOperandInt = Integer.parseInt(firstOperand);
             firstOperandIsInt = true;
+            //Если ""3"" внутри строки то firstOperandIsIntInString=true;
         } catch (Exception exception) {
             firstOperandIsInt = false;
         }

@@ -5,6 +5,9 @@ import static StringCalculate.Initializer.*;
 public class Calculator {
     public String calculate() {
         StringBuilder stringBuilder = new StringBuilder(firstOperand);
+        if (arrayWithNumbers[0].contains("\"") && firstOperandIsInt && secondOperandIsInt && operator == '+') {
+            stringBuilder.append(secondOperand);
+        } else
         if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
             stringBuilder.append(secondOperand);
         } else if (!firstOperandIsInt && !secondOperandIsInt && operator == '/') {
@@ -15,7 +18,9 @@ public class Calculator {
             return subtractWord();
         } else if (!firstOperandIsInt && secondOperandIsInt && operator == '*') {
             buildWord(stringBuilder);
-        }
+        } else if (!arrayWithNumbers[0].contains("\"")) {
+            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
+        };
         /*
          *Если больше 40 символов, то в результат добавляется троеточие
          */
