@@ -1,13 +1,11 @@
 package StringCalculate;
 
-import static StringCalculate.Main.validOperators;
-
 public class Initializer {
     static String firstOperand, secondOperand;
     static char operator;
     static int firstOperandInt, secondOperandInt;
     static String [] arrayWithNumbers;
-    static boolean firstOperandIsInt, secondOperandIsInt, firstOperandIsIntInString, secondOperandIsIntInString = false;
+    static boolean firstOperandIsInt, secondOperandIsInt = false;
     public void initOperator(String inputWithoutSpace) {
         char[] arrayOfInputChars = new char[1000];
         for (int i = 0; i < inputWithoutSpace.length(); i++) {
@@ -19,7 +17,6 @@ public class Initializer {
             if (arrayOfInputChars [i] != '\"') {
                 if (arrayOfInputChars[i] == '-' && arrayOfInputChars[i - 1] == '\"') {
                     operator = '-';
-//определилил что это настоящии минус (строка 19), значит мы можем вставить пробел под этим элементом.
                     arrayOfInputChars [i] = ' ';
                 }
             }
@@ -32,17 +29,14 @@ public class Initializer {
                 arrayOfInputChars [i] = ' ';
             }
         }
-        initArrayWithNumbers(arrayOfInputChars, validOperators);
+        initArrayWithNumbers(arrayOfInputChars);
     }
 
-    public void initArrayWithNumbers(char[] arrayOfInputChars, String validOperators) {
+    public void initArrayWithNumbers(char[] arrayOfInputChars) {
         arrayWithNumbers = String.valueOf(arrayOfInputChars).split(" ");
     }
 
     public void initOperand(String[] arrayWithNumbers) {
-//        if (!arrayWithNumbers[0].contains("\"")) {
-//            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
-//        };
         firstOperand = arrayWithNumbers[0].trim().replaceAll("^\"|\"$", "");
         secondOperand = arrayWithNumbers[1].trim().replaceAll("^\"|\"$", "");
     }
@@ -51,7 +45,6 @@ public class Initializer {
         try {
             firstOperandInt = Integer.parseInt(firstOperand);
             firstOperandIsInt = true;
-            //Если ""3"" внутри строки то firstOperandIsIntInString=true;
         } catch (Exception exception) {
             firstOperandIsInt = false;
         }

@@ -13,15 +13,6 @@ public class Validator {
     }
 
     public void checkNumbers() throws IllegalArgumentException {
-        //Сделать 2 проверки: 1. если внутри строки число, то не надо кидать исключение, если внутри буквы, кинуть искл.
-        // (18строка)
-        //3 + "hello" + "3" - на первую тройку кидать исключение, на вторую - рассчет
-//        if (firstOperandIsInt) {
-//            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
-//        }
-//        if (firstOperand.lastIndexOf("\"")) || firstOperandIsInt == true) {
-//            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка")
-//        }
         if (!arrayWithNumbers[0].contains("\"")) {
             if (secondOperandIsInt && (secondOperandInt < 1 || secondOperandInt > 10)) {
                 throw new IllegalArgumentException("Вы ввели значение, неудолетворяющее условию (числа должны быть " +
