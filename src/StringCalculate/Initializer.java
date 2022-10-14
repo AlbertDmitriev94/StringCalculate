@@ -32,6 +32,7 @@ public class Initializer {
         initArrayWithNumbers(arrayOfInputChars);
     }
 
+
     public void initArrayWithNumbers(char[] arrayOfInputChars) {
         arrayWithNumbers = String.valueOf(arrayOfInputChars).split(" ");
     }
