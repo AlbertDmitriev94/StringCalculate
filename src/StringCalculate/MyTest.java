@@ -50,19 +50,19 @@ public class MyTest {
         Assert.assertEquals(result, "w");
     }
 
-    @Test
-    void test61() {
-        String input = "word-hi";
-        String result = Main.prepareAndCalculate(input);
-        Assert.assertEquals(result, "word");
-    }
-
-    @Test
-    void test62() {
-        String input = "wordhi-hi";
-        String result = Main.prepareAndCalculate(input);
-        Assert.assertEquals(result, "word");
-    }
+//    @Test
+//    void test61() {
+//        String input = "Bye-bye!" '-' "World!";
+//        String result = Main.prepareAndCalculate(input);
+//        Assert.assertEquals(result, "Bye-bye!");
+//    }
+//
+//    @Test
+//    void test62() {
+//        String input = "wordhi-hi";
+//        String result = Main.prepareAndCalculate(input);
+//        Assert.assertEquals(result, "word");
+//    }
 
     @Test
     void test72() {

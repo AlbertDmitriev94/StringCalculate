@@ -14,22 +14,29 @@ public class Initializer {
             arrayOfInputChars[i] = inputWithoutSpace.charAt(i);
             if (arrayOfInputChars[i] == '+') {
                 operator = '+';
+                arrayOfInputChars [i] = ' ';
             }
-            if (arrayOfInputChars[i] == '-') {
-                operator = '-';
+            if (arrayOfInputChars [i] != '\"') {
+                if (arrayOfInputChars[i] == '-' && arrayOfInputChars[i - 1] == '\"') {
+                    operator = '-';
+//определилил что это настоящии минус (строка 19), значит мы можем вставить пробел под этим элементом.
+                    arrayOfInputChars [i] = ' ';
+                }
             }
             if (arrayOfInputChars[i] == '*') {
                 operator = '*';
+                arrayOfInputChars [i] = ' ';
             }
             if (arrayOfInputChars[i] == '/') {
                 operator = '/';
+                arrayOfInputChars [i] = ' ';
             }
         }
         initArrayWithNumbers(arrayOfInputChars, validOperators);
     }
 
     public void initArrayWithNumbers(char[] arrayOfInputChars, String validOperators) {
-        arrayWithNumbers = String.valueOf(arrayOfInputChars).split(validOperators);
+        arrayWithNumbers = String.valueOf(arrayOfInputChars).split(" ");
     }
 
     public void initOperand(String[] arrayWithNumbers) {

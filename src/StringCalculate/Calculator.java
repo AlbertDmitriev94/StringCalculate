@@ -7,8 +7,7 @@ public class Calculator {
         StringBuilder stringBuilder = new StringBuilder(firstOperand);
         if (arrayWithNumbers[0].contains("\"") && firstOperandIsInt && secondOperandIsInt && operator == '+') {
             stringBuilder.append(secondOperand);
-        } else
-        if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
+        } else if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
             stringBuilder.append(secondOperand);
         } else if (!firstOperandIsInt && !secondOperandIsInt && operator == '/') {
             throw new IllegalStateException("Ошибка при вычислении");
@@ -18,9 +17,12 @@ public class Calculator {
             return subtractWord();
         } else if (!firstOperandIsInt && secondOperandIsInt && operator == '*') {
             buildWord(stringBuilder);
+        } else if (!firstOperandIsInt && !secondOperandIsInt && operator == '*') {
+            throw new IllegalStateException("Ошибка при вычислении");
         } else if (!arrayWithNumbers[0].contains("\"")) {
             throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
-        };
+        }
+        ;
         /*
          *Если больше 40 символов, то в результат добавляется троеточие
          */
