@@ -5,7 +5,9 @@ import static StringCalculate.Initializer.*;
 public class Calculator {
     public String calculate() {
         StringBuilder stringBuilder = new StringBuilder(firstOperand);
-        if (arrayWithNumbers[0].contains("\"") && firstOperandIsInt && secondOperandIsInt && operator == '+') {
+        if (arrayWithNumbers[0].contains("\"") && firstOperandIsIntInString && secondOperandIsInt && operator == '+') {
+            throw new IllegalStateException("Ошибка при вычислении");
+        } else if (arrayWithNumbers[0].contains("\"") && firstOperandIsInt && secondOperandIsInt && operator == '+') {
             stringBuilder.append(secondOperand);
         } else if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
             stringBuilder.append(secondOperand);
@@ -30,11 +32,9 @@ public class Calculator {
     }
 
     public String subtractWord() {
-        int indexSecondWord = firstOperand.indexOf(secondOperand);
-        return switch (indexSecondWord) {
-            case -1 -> firstOperand;
-            default -> firstOperand.substring(0, indexSecondWord);
-        };
+        firstOperand = firstOperand.replaceAll("\"", "");
+        secondOperand = secondOperand.replaceAll("\"", "");
+        return firstOperand.replace(secondOperand, "");
     }
 
     public void buildWord(StringBuilder stringBuilder) {

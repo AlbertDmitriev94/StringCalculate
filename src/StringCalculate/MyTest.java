@@ -5,16 +5,18 @@ import org.junit.jupiter.api.Test;
 
 public class MyTest {
     @Test
-    void test3(){
+    void test3() {
         String input = "a+b";
         String result = Main.prepareAndCalculate(input);
         Assert.assertEquals(result, "ab");
     }
+
     @Test
     void test10() {
         String input = "hi/acjk";
         Assert.assertThrows(IllegalStateException.class, () -> Main.prepareAndCalculate(input));
     }
+
     @Test
     void test7() {
         String input = "11+3";
@@ -26,6 +28,7 @@ public class MyTest {
         String input = "3+word";
         Assert.assertThrows(Exception.class, () -> Main.prepareAndCalculate(input));
     }
+
     @Test
     void test5() {
         String input = "word*3";
@@ -42,24 +45,31 @@ public class MyTest {
 
     @Test
     void test42() {
-        String input = "word/1";
+        String input = "word/4";
         String result = Main.prepareAndCalculate(input);
-        Assert.assertEquals(result, "word");
+        Assert.assertEquals(result, "w");
     }
 
-    @Test
-    void test61() {
-        String input = "word-hi";
-        String result = Main.prepareAndCalculate(input);
-        Assert.assertEquals(result, "word");
-    }
+    //ручной тесты
+    // "5" + 2 - дб ошибка
+    // "5" - 2 - дб ошибка
+    // "3" * "2" - дб ошибка
 
-    @Test
-    void test62() {
-        String input = "wordhi-hi";
-        String result = Main.prepareAndCalculate(input);
-        Assert.assertEquals(result, "word");
-    }
+
+
+//    @Test
+//    void test61() {
+//        String input = "Bye-bye!" '-' "World!";
+//        String result = Main.prepareAndCalculate(input);
+//        Assert.assertEquals(result, "Bye-bye!");
+//    }
+//
+//    @Test
+//    void test62() {
+//        String input = "wordhi-hi";
+//        String result = Main.prepareAndCalculate(input);
+//        Assert.assertEquals(result, "word");
+//    }
 
     @Test
     void test72() {
@@ -67,7 +77,8 @@ public class MyTest {
         String result = Main.prepareAndCalculate(input);
         Assert.assertEquals(result, "worldworldworldworldworldworldworldworldworldworld...");
     }
-//
+
+
 //    @Test
 //    void test11() {
 //        String input = "11^6";

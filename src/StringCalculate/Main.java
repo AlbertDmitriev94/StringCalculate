@@ -46,9 +46,9 @@ public class Main {
         //Проверка валидности оператора
         validator.checkValidOperator(initializer.arrayWithNumbers);
         //Инициализация первого и второго операнда
-        initializer.initOperand(initializer.arrayWithNumbers);
+        //initializer.initOperand(initializer.arrayWithNumbers);
         //Проверка операнда является ли он числом или строкой
-        initializer.defineNumbers();
+        initializer.defineNumbers(initializer.arrayWithNumbers);
         //Проверка чисел
         validator.checkNumbers();
     }

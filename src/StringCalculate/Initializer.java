@@ -4,29 +4,30 @@ public class Initializer {
     static String firstOperand, secondOperand;
     static char operator;
     static int firstOperandInt, secondOperandInt;
-    static String [] arrayWithNumbers;
-    static boolean firstOperandIsInt, secondOperandIsInt = false;
+    static String[] arrayWithNumbers;
+    static boolean firstOperandIsInt, secondOperandIsInt, firstOperandIsIntInString = false;
+
     public void initOperator(String inputWithoutSpace) {
-        char[] arrayOfInputChars = new char[1000];
+        char[] arrayOfInputChars = new char[100];
         for (int i = 0; i < inputWithoutSpace.length(); i++) {
             arrayOfInputChars[i] = inputWithoutSpace.charAt(i);
             if (arrayOfInputChars[i] == '+') {
                 operator = '+';
-                arrayOfInputChars [i] = ' ';
+                arrayOfInputChars[i] = ' ';
             }
-            if (arrayOfInputChars [i] != '\"') {
+            if (arrayOfInputChars[i] != '\"') {
                 if (arrayOfInputChars[i] == '-' && arrayOfInputChars[i - 1] == '\"') {
                     operator = '-';
-                    arrayOfInputChars [i] = ' ';
+                    arrayOfInputChars[i] = ' ';
                 }
             }
             if (arrayOfInputChars[i] == '*') {
                 operator = '*';
-                arrayOfInputChars [i] = ' ';
+                arrayOfInputChars[i] = ' ';
             }
             if (arrayOfInputChars[i] == '/') {
                 operator = '/';
-                arrayOfInputChars [i] = ' ';
+                arrayOfInputChars[i] = ' ';
             }
         }
         initArrayWithNumbers(arrayOfInputChars);
@@ -37,23 +38,40 @@ public class Initializer {
         arrayWithNumbers = String.valueOf(arrayOfInputChars).split(" ");
     }
 
-    public void initOperand(String[] arrayWithNumbers) {
-        firstOperand = arrayWithNumbers[0].trim().replaceAll("^\"|\"$", "");
-        secondOperand = arrayWithNumbers[1].trim().replaceAll("^\"|\"$", "");
-    }
+//    public void initOperand(String[] arrayWithNumbers) {
+//        firstOperand = arrayWithNumbers[0].trim().replaceAll("\"", "");
+//        secondOperand = arrayWithNumbers[1].trim().replaceAll("\"", "");
+//    }
 
-    public void defineNumbers() {
+//    public void checkSplitOperator (String[] arrayWithNumbers) {
+//        if (secondOperand.contains("^\"|\"$")) {
+//            throw new IllegalStateException("Ошибка при вычислении");
+//        }
+//        secondOperand = arrayWithNumbers[1].trim().replaceAll("^\"|\"$", "");
+//    }
+
+    public void defineNumbers(String[] arrayWithNumbers) {
         try {
+            firstOperand = arrayWithNumbers[0].trim().replaceAll("\"", "");
+            secondOperand = arrayWithNumbers[1].trim().replaceAll("\"", "");
             firstOperandInt = Integer.parseInt(firstOperand);
             firstOperandIsInt = true;
-        } catch (Exception exception) {
-            firstOperandIsInt = false;
-        }
-        try {
             secondOperandInt = Integer.parseInt(secondOperand);
             secondOperandIsInt = true;
+            if (arrayWithNumbers[0].contains("\"")) {
+                firstOperandIsIntInString = true;
+            }
+            /*
+            В блоке трай после парсинт проверять ферстоперанд на наличие кавычек.
+             */
         } catch (Exception exception) {
-            secondOperandIsInt = false;
+            firstOperandIsInt = false;
+            try {
+                secondOperandInt = Integer.parseInt(secondOperand);
+                secondOperandIsInt = true;
+            } catch (Exception exception1) {
+                secondOperandIsInt = false;
+            }
         }
     }
 }
