@@ -5,6 +5,12 @@ import static StringCalculate.Initializer.*;
 public class Calculator {
     public String calculate() {
         StringBuilder stringBuilder = new StringBuilder(firstOperand);
+        if (firstOperandIsIntInString) {
+            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
+        }
+        if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
+            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
+        }
         if (arrayWithNumbers[0].contains("\"") && firstOperandIsIntInString && secondOperandIsInt && operator == '+') {
             throw new IllegalStateException("Ошибка при вычислении");
         } else if (arrayWithNumbers[0].contains("\"") && firstOperandIsInt && secondOperandIsInt && operator == '+') {
