@@ -5,18 +5,18 @@ import static StringCalculate.Initializer.*;
 public class Calculator {
     public String calculate() {
         StringBuilder stringBuilder = new StringBuilder(firstOperand);
-        if (firstOperandIsIntInString) {
-            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
+        if (firstOperandIsInt && secondOperandIsInt && operator == '*') {
+            throw new IllegalArgumentException("Ошибка при вычислении");
         }
-        if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
-            throw new IllegalArgumentException("Первым аргументом выражения, подаваемого на вход, должна быть строка");
+        else if (firstOperandIsIntInString && !secondOperandIsIntInString && secondOperandIsInt) {
+            throw new IllegalArgumentException("Ошибка при вычислении");
         }
-        if (arrayWithNumbers[0].contains("\"") && firstOperandIsIntInString && secondOperandIsInt && operator == '+') {
-            throw new IllegalStateException("Ошибка при вычислении");
+        else if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
+            stringBuilder.append(secondOperand);
         } else if (arrayWithNumbers[0].contains("\"") && firstOperandIsInt && secondOperandIsInt && operator == '+') {
             stringBuilder.append(secondOperand);
-        } else if (!firstOperandIsInt && !secondOperandIsInt && operator == '+') {
-            stringBuilder.append(secondOperand);
+        } else if (arrayWithNumbers[0].contains("\"") && firstOperandIsIntInString && secondOperandIsInt && operator == '+') {
+            throw new IllegalStateException("Ошибка при вычислении");
         } else if (!firstOperandIsInt && !secondOperandIsInt && operator == '/') {
             throw new IllegalStateException("Ошибка при вычислении");
         } else if (!firstOperandIsInt && secondOperandIsInt && operator == '/') {

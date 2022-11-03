@@ -5,7 +5,7 @@ public class Initializer {
     static char operator;
     static int firstOperandInt, secondOperandInt;
     static String[] arrayWithNumbers;
-    static boolean firstOperandIsInt, secondOperandIsInt, firstOperandIsIntInString = false;
+    static boolean firstOperandIsInt, secondOperandIsInt, firstOperandIsIntInString, secondOperandIsIntInString = false;
 
     public void initOperator(String inputWithoutSpace) {
         char[] arrayOfInputChars = new char[100];
@@ -58,8 +58,11 @@ public class Initializer {
             firstOperandIsInt = true;
             secondOperandInt = Integer.parseInt(secondOperand);
             secondOperandIsInt = true;
-            if (arrayWithNumbers[0].contains("\"")) {
+            if (arrayWithNumbers[0].contains("\"")){
                 firstOperandIsIntInString = true;
+            }
+            if (arrayWithNumbers[1].contains("\"")){
+                secondOperandIsIntInString = true;
             }
             /*
             В блоке трай после парсинт проверять ферстоперанд на наличие кавычек.
